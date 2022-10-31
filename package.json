@@ -6,6 +6,6 @@
   "scripts": {
     "install": "pip install -r requirements.txt",
     "seed": "flask --app blog init-db",
-    "start": "flask --app blog run"
+    "start": "flask --app pytter run"
   }
 }
