@@ -5,34 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Document</title>
+    <title>{{title}} - Pytter</title>
 
-    <title>{% block title %}{% endblock %} - Flaskr</title>
+    {# bootstrap stuff #}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css"
+      integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.bundle.min.js"
+      integrity="sha512-BOsvKbLb0dB1IVplOL9ptU1EYA+LuCKEluZWRUYG73hxqNBU85JBIBhPGwhQl7O633KtkjMv8lvxZcWP+N3V3w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    {# custom styling #}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
+
   <body>
-    <nav>
-      <h1>Blog</h1>
-      <ul>
-        {% if g.user %}
-          <li><span>{{ g.user['username'] }}</span></li>
-          <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-        {% else %}
-          <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-          <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-        {% endif %}
-      </ul>
-    </nav>
-    <section class="content">
-      <header>
-        {% block header %}{% endblock %}
-      </header>
+    <header>
+      <h1><a href="{{ url_for('index') }}">Pytter</a></h1>
 
-      {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-      {% endfor %}
+      <nav>
+        <ul>
+          {% if g.user %}
+            <li>
+              <span style="opacity: 0.6;">Welcome, {{ g.user['username'] }}!</span>
+            </li>
+            <li>
+              <a href="{{ url_for('blog.create') }}">New Post</a>
+            </li>
+            <li>
+              <a href="{{ url_for('auth.logout') }}">Log Out</a>
+            </li>
+          {% else %}
+            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+            <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
 
-      {% block content %}{% endblock %}
-    </section>    
+    <main>
+      <h2>{{title}}</h2>
+      <div>{% block content %}{% endblock %}</div>
+    </main>
+
+    <footer>Krushil Naik | INF-601 Mini Project 3</footer>
   </body>
 </html>
